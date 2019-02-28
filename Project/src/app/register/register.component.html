@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <div class="title" style="text-align: center;">
+              <button style="display: inline-block; border-radius: 20px; margin-right: 10px" routerLink="/login" type="button" class="btn btn-warning" title="Come Back"><i class="fas fa-long-arrow-alt-left"></i></button> <h5 style="display: inline-block;" class="card-title text-center">Register Form</h5>
+          </div>
+
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" [formGroup]="phoneForm" class="form-signin" ngNativeValidate>
+            <div class="form-label-group">
+              <input type="email" id="inputEmail" class="form-control" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email address" required autofocus>
+              <label for="inputEmail">Email address</label>
+            </div>
+
+            <div style="display: flex; justify-content: space-bewteen;">
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}" name="pass" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword2" [(ngModel)]="pass2" [ngModelOptions]="{standalone: true}" class="form-control" name="pass2" placeholder="Password" required>
+                <label for="inputPassword">Confirm Password</label>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-bewteen;">
+              <div class="form-label-group">
+                <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" name="name" class="form-control" placeholder="Name" required>
+                <label for="name">Name</label>
+              </div>
+              <div class="form-label-group">
+                <input type="text" id="lastname" name="lastname" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Last Name" required>
+                <label for="lastname">Last Name</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" style="border-radius: 30px; padding: 20px;" placeholder="Date of Birthday"
+                       name="birthday" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" style="border-radius: 30px; padding: 10px;" (click)="d.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; width: 100%;">
+              <label for="number">Phone Number</label>
+              <div class="form-label-group" style="width: 100%">
+  
+                <ngx-intl-tel-input 
+                [cssClass]="'form-control'" 
+                style="width: 100%"
+                [preferredCountries]="['cr', 'gb']" 
+                [enablePlaceholder]="true"
+                [enableAutoCountrySelect]="true"
+                name="phone" 
+                formControlName="phone"></ngx-intl-tel-input>
+              </div>
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+            </div>
+           
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register me</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

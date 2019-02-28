@@ -1,0 +1,7 @@
+extends ./bootstrap/_bootstrap
+block body
+	+navbar("Kevin´s Project","dropdown_menu", "inverse")
+	.container
+		+panel-success("Email Confirmation Completed")
+			p Go to the System's Login 
+			+a-btn-primary("http://localhost:4200/login") Click Here to Login

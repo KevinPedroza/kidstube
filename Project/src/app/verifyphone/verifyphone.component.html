@@ -1,0 +1,30 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/">
+    <i class="fab fa-youtube"></i>
+    Kevin's Tube
+  </a>
+</nav>
+
+<div class="container" style="margin-top: 25px;">
+  <div class="alert alert-info" role="alert" style="text-align: center;">
+    We've sent a code to your Phone Number, Check it Out!!
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 offset-3" style="margin-top: 15px;">
+      <div class="input-group flex-nowrap">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="addon-wrapping"><i class="fas fa-sms"></i></span>
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="code" placeholder="SMS Code" aria-label="Username" aria-describedby="addon-wrapping">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 offset-4" style="margin-top: 15px;">
+      <button type="button" style="width: 68%;" (click)="checkCode()" class="btn btn-primary">Verify Code</button>
+    </div>
+  </div>
+
+</div>
