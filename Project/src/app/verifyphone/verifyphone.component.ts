@@ -20,7 +20,7 @@ export class VerifyphoneComponent implements OnInit {
   code: number;
 
   constructor(private toastr: ToastrService, private requestService: RequestsmsService,
-    private authService: AuthService) { }
+    private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -45,6 +45,7 @@ export class VerifyphoneComponent implements OnInit {
               console.log(arbitro);
               if(arbitro.success){
                 this.toastr.success('Your Code is Correct!', 'Successfully');
+                this.router.navigate(['/admin']);
               }
 
             },

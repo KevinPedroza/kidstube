@@ -15,13 +15,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyphoneComponent } from './verifyphone/verifyphone.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    VerifyphoneComponent
+    VerifyphoneComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
