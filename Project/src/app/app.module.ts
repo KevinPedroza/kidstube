@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyphoneComponent } from './verifyphone/verifyphone.component';
 import { AdminComponent } from './admin/admin.component';
+import { AccountsComponent } from './accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AdminComponent } from './admin/admin.component';
     LoginComponent,
     RegisterComponent,
     VerifyphoneComponent,
-    AdminComponent
+    AdminComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule,

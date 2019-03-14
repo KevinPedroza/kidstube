@@ -3,6 +3,8 @@ const usarioController = require('./controladores/usuario');
 const Usuario = require('./modelos').Usuario;
 const authMiddleware = require('./middlewares/auth');
 var users = require('./controladores/users.js');
+const MenorController = require('./controladores/menores');
+const VideoController = require('./controladores/video');
 
 module.exports.set = (app) => {
 
@@ -27,6 +29,19 @@ module.exports.set = (app) => {
 	app.delete('/usuarios/:id', authMiddleware.checkAuth, usarioController.deleteUsuario);
     app.post('/usuarios', authMiddleware.checkAuth, usarioController.addUsuario);
     
+	app.get('/menores', authMiddleware.checkAuth, MenorController.getMenores);
+	app.get('/menores/:id', authMiddleware.checkAuth, MenorController.getMenor);
+	app.put('/menores', authMiddleware.checkAuth, MenorController.updateMenor);
+	app.delete('/menores/:id', authMiddleware.checkAuth, MenorController.deleteMenor);
+    app.post('/menores', authMiddleware.checkAuth, MenorController.addMenor);
+
+	app.get('/video', authMiddleware.checkAuth, VideoController.getVideos);
+	app.get('/video/:id', authMiddleware.checkAuth, VideoController.getVideo);
+	app.put('/video', authMiddleware.checkAuth, VideoController.updateVideo);
+	app.delete('/video/:id', authMiddleware.checkAuth, VideoController.deleteVideo);
+    app.post('/video', authMiddleware.checkAuth, VideoController.addVideo);
+    app.post('/videourl', authMiddleware.checkAuth, VideoController.addVideoURL);
+
     app.get('/verify_email', function(req,res) {
         console.log('verify_email token: ',req.query.token);
 

@@ -1,0 +1,106 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" title="Go Home" routerLink="/admin"><i class="fab fa-youtube"> Kevin's Tube</i></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-ellipsis-h"></i>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-4 mt-lg-0" style="width: 100%;">
+      <li class="nav-item">
+        <a class="nav-link" (click)="open(newuser)">New User <i class="fas fa-user-plus"></i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main style="margin: 15px;">
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-primary" style="color: white;">
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">PIN</th>
+        <th scope="col">Age</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let menor of menores;">
+      <tr>
+        <th scope="row">{{menor.nombre}}</th>
+        <td>{{menor.nombreusuario}}</td>
+        <td>{{menor.pin}}</td>
+        <td>{{menor.edad}}</td>
+        <td><button class="btn btn-dark" (click)="onEdit(menor.id)" (click)="open(modifyuser)" style="margin-right: 3px;"><i class="fas fa-user-edit"></i></button><button (click)="Eliminar(menor.nombreusuario, menor.id)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<ng-template #newuser let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create a New User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="addMenor(f)" ngNativeValidate>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="nombre">Name</label>
+          <input type="text" [(ngModel)]="nombre" required class="form-control" name="nombre" id="nombre" placeholder="Name">
+        </div>
+        <div class="col-sm-6">
+          <label for="username">Username</label>
+          <input type="text" [(ngModel)]="username" required class="form-control" name="username" id="username" placeholder="Username">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="pin">Pin</label>
+          <input type="number" [(ngModel)]="pin" required oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="pin" id="pin" placeholder="PIN">
+        </div>
+        <div class="col-sm-6">
+          <label for="age">Age</label>
+          <input type="number" [(ngModel)]="age" required oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="age" id="age" placeholder="Age">
+        </div>
+      </div>
+      <button style="margin-top: 10px; width: 100%;" type="submit" class="btn btn-primary">Create new User <i class="fas fa-user-plus"></i></button>
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #modifyuser let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modify the User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="updateMenor(f)" ngNativeValidate>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="nombre">Name</label>
+          <input type="text" [(ngModel)]="regModel.nombre" required class="form-control" name="nombre" id="nombre" placeholder="Name">
+        </div>
+        <div class="col-sm-6">
+          <label for="username">Username</label>
+          <input type="text" [(ngModel)]="regModel.nombreusuario" required class="form-control" name="username" id="username" placeholder="Username">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="pin">Pin</label>
+          <input type="number" [(ngModel)]="regModel.pin" required oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="pin" id="pin" placeholder="PIN">
+        </div>
+        <div class="col-sm-6">
+          <label for="age">Age</label>
+          <input type="number" [(ngModel)]="regModel.edad" required oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" class="form-control" name="age" id="age" placeholder="Age">
+        </div>
+      </div>
+      <button style="margin-top: 10px; width: 100%;" type="submit" class="btn btn-primary">Modify the User <i class="fas fa-user-edit"></i></button>
+    </form>
+  </div>
+</ng-template>

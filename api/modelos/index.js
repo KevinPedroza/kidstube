@@ -23,8 +23,32 @@ const Usuario = sequelize.define('usuario', {
     code: Sequelize.STRING
 });
 
+const Menores = sequelize.define('menore', {
+    id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+    nombre: Sequelize.STRING,
+    nombreusuario: Sequelize.STRING,
+    pin: Sequelize.INTEGER,
+    edad: Sequelize.INTEGER,
+});
+
+const Videos = sequelize.define('menore', {
+    id: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+    nombre: Sequelize.STRING,
+    url: Sequelize.STRING
+});
+
 
 module.exports = {
     User,
-    Usuario
+    Usuario,
+    Menores,
+    Videos
 }
