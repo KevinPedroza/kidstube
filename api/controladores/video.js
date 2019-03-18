@@ -1,5 +1,6 @@
 const videoService = require('../servicios/video');
 const path = require('path');
+var fs = require('fs');
 
 function getVideos(req, res) {
 	videoService.getAll()
@@ -27,7 +28,7 @@ function addVideoURL(req, res){
     .then(data => res.send(data));
 };
 
-function updateVideo(req, res) {
+function updateVideoURL(req, res) {
 	videoService.updateVideo({
 			id: req.body.id,
 			name: req.body.name,
@@ -36,7 +37,33 @@ function updateVideo(req, res) {
 		.then(data => res.send(data));
 };
 
+function updateVideoName(req, res) {
+	videoService.updateVideo({
+			id: req.body.id,
+			name: req.body.name,
+		})
+		.then(data => res.send(data));
+};
+
+function updateVideoNameVideo(req, res) {
+	videoService.updateVideo({
+			id: req.body.id,
+			name: req.body.name,
+		})
+		.then(data => res.send(data));
+};
+
 function deleteVideo(req, res) {
+	res.send(videoService.deleteVideo({
+		id: req.params.id
+	}));
+	fs.unlink("./public/videos/" + req.params.video, function (err) {
+		if (err) throw err;
+		console.log('File deleted!');
+	}); 
+};
+
+function deleteVideoURL(req, res) {
 	res.send(videoService.deleteVideo({
 		id: req.params.id
 	}));
@@ -47,7 +74,10 @@ module.exports = {
 	getVideos,
 	getVideo,
 	addVideo,
-	updateVideo,
+	updateVideoURL,
     deleteVideo,
-    addVideoURL
+	addVideoURL,
+	deleteVideoURL,
+	updateVideoName,
+	updateVideoNameVideo
 }

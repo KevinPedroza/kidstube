@@ -23,6 +23,9 @@ export class AdminComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
 
+  selectedFilesVideo: FileList;
+  currentFileUploadVideo: File;
+
   youtube: boolean;
   name: string;
   url: string;
@@ -38,6 +41,10 @@ export class AdminComponent implements OnInit {
   onFileSelected(event) {
     this.selectedFiles = event.target.files;
     this.pdfname = this.selectedFiles.item(0).name;
+  }
+
+  onFileSelectedVideo(event) {
+    this.selectedFilesVideo = event.target.files;
   }
 
   open(content) {
@@ -66,6 +73,98 @@ export class AdminComponent implements OnInit {
       },
       error => (this.errorMessage = <any>error)
     );
+  }
+
+  onEdit2(orderToEdit: Video) {
+    this.regModel = new Video();
+    this.regModel = Object.assign({}, orderToEdit);
+  }
+
+   onEdit(id: number) {
+    let filterData = this.videos.filter((order: Video) => order.id == id);
+    this.onEdit2(filterData[0]);
+  }
+
+  updateVideoURL(form: NgForm){
+    this.authService.login().subscribe(
+      token => {
+        this.token = token;
+        if (this.video === undefined) {
+          this.video = new Video();
+        }
+        this.video.id = this.regModel.id;
+        this.video.name = this.regModel.name;
+        this.video.url = this.regModel.url;
+
+        this.videoService.UpdateVideoURL(this.token, this.video).subscribe(
+          arbitro => {
+            form.reset();
+            this.modalService.dismissAll();
+            this.GetVideos();
+            this.toastr.success('The video was successfully updated!', 'Success');
+          },
+          error => (this.errorMessage = <any>error),
+        );
+      },
+      error => (this.errorMessage = <any>error),
+    );
+  }
+
+  updateVideo(form: NgForm){
+
+    if(this.selectedFilesVideo == undefined || this.selectedFilesVideo == null){
+
+      this.authService.login().subscribe(
+        token => {
+          this.token = token;
+          if (this.video === undefined) {
+            this.video = new Video();
+          }
+          this.video.id = this.regModel.id;
+          this.video.name = this.regModel.name;
+  
+          this.videoService.UpdateVideoName(this.token, this.video).subscribe(
+            arbitro => {
+              form.reset();
+              this.modalService.dismissAll();
+              this.GetVideos();
+              this.toastr.success('The video was successfully updated!', 'Success');
+            },
+            error => (this.errorMessage = <any>error),
+          );
+        },
+        error => (this.errorMessage = <any>error),
+      );
+    } else {
+
+    }
+
+  }
+
+  EliminarVideo(name: string, id: number, video: string) {
+    if (confirm('Do you want to delete the video: ' + name + ' ?')) {
+      this.videoService.DeleteVideo(this.token, id, video).subscribe(
+        arbitro => {
+          this.GetVideos();
+          this.toastr.success('The video was successfully deleted!', 'Success');
+        },
+        error => (this.errorMessage = <any>error),
+      );
+
+    }
+  }
+  
+  EliminarURL(name: string, id: number) {
+    if (confirm('Do you want to delete the video: ' + name + ' ?')) {
+      this.videoService.DeleteURL(this.token, id).subscribe(
+        arbitro => {
+          this.GetVideos();
+          this.toastr.success('The video was successfully deleted!', 'Success');
+        },
+        error => (this.errorMessage = <any>error),
+      );
+
+    }
   }
 
   addVideo(form: NgForm){

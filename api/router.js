@@ -50,9 +50,10 @@ module.exports.set = (app) => {
     app.post('/menores', authMiddleware.checkAuth, MenorController.addMenor);
 
 	app.get('/video', authMiddleware.checkAuth, VideoController.getVideos);
-	app.get('/video/:id', authMiddleware.checkAuth, VideoController.getVideo);
-	app.put('/video', authMiddleware.checkAuth, VideoController.updateVideo);
-	app.delete('/video/:id', authMiddleware.checkAuth, VideoController.deleteVideo);
+    app.put('/videourl', authMiddleware.checkAuth, VideoController.updateVideoURL);
+    app.put('/video', authMiddleware.checkAuth, VideoController.updateVideoName);
+    app.delete('/videourl/:id', authMiddleware.checkAuth, VideoController.deleteVideoURL);
+	app.delete('/video/:id/:video', authMiddleware.checkAuth, VideoController.deleteVideo);
     app.post('/video/:name', upload.single('video'), VideoController.addVideo);
     app.post('/videourl', authMiddleware.checkAuth, VideoController.addVideoURL);
 

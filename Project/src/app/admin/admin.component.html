@@ -69,8 +69,8 @@
                 <div class="card-body" style="text-align: center;">
                   <h5 class="card-title">{{video.name}}</h5>
                   <div class="botones" style="width: 100%; display: flex; justify-content: space-between;">
-                      <button class="btn btn-primary"><i class="far fa-edit"></i></button>
-                      <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                      <button class="btn btn-primary" title="Edit Video" (click)="open(updatevideo);" (click)="onEdit(video.id)"><i class="far fa-edit"></i></button>
+                      <button class="btn btn-danger" title="Delete Video" (click)="EliminarVideo(video.name, video.id, video.video)"><i class="far fa-trash-alt"></i></button>
                   </div>
                 </div>
             </div>
@@ -83,8 +83,8 @@
                       <div class="card-body" style="text-align: center;">
                         <h5 class="card-title">{{video.name}}</h5>
                         <div class="botones" style="width: 100%; display: flex; justify-content: space-between;">
-                            <button class="btn btn-primary"><i class="far fa-edit"></i></button>
-                            <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            <button class="btn btn-primary" title="Edit Video" (click)="open(updatevideourl);" (click)="onEdit(video.id)"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-danger" title="Delete Video" (click)="EliminarURL(video.name, video.id)"><i class="far fa-trash-alt"></i></button>
                         </div>
                       </div>
                     </div>
@@ -93,6 +93,58 @@
     </ng-container>
   
   </div>
+
+  <ng-template #updatevideo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> Edit Video</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="updateVideo(f)" ngNativeValidate>
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="videoname">Name Video</label>
+              <input type="text" required name="videoname" [(ngModel)]="regModel.name" id="videoname" class="form-control" placeholder="Name Video">
+            </div>
+            <div class="col-sm-12">
+              <label for="videopublic">Video</label>
+              <input type="text" readonly name="videopublic" [(ngModel)]="regModel.video" id="videopublic" class="form-control" placeholder="Name Video">
+            </div>
+            <div class="col-sm-12" style="text-align: center; margin:auto; margin-top: 5px;">
+              <label for="videoupdate">New Video</label><br>
+              <input type="file" (change)="onFileSelectedVideo($event)" name="videoupdate" id="videoupdate">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Modify Video <i class="fas fa-edit"></i></button>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #updatevideourl let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> Edit Video</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="updateVideoURL(f)" ngNativeValidate>
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="videourl">Name Video</label>
+              <input type="text" required name="videourl" [(ngModel)]="regModel.name" id="videourl" class="form-control" placeholder="Name Video">
+            </div>
+            <div class="col-sm-12">
+              <label for="url">URL Video</label>
+              <input type="text" required name="url" [(ngModel)]="regModel.url" id="url" class="form-control" placeholder="URL Video">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Modify Video <i class="fas fa-edit"></i></button>
+      </form>
+    </div>
+  </ng-template>
     
 </main>
 
