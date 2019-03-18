@@ -46,9 +46,14 @@ function updateVideoName(req, res) {
 };
 
 function updateVideoNameVideo(req, res) {
+	fs.unlink("./public/videos/" + req.params.video, function (err) {
+		if (err) throw err;
+		console.log('File deleted!');
+	}); 
 	videoService.updateVideo({
-			id: req.body.id,
-			name: req.body.name,
+			id: req.params.id,
+			name: req.params.name,
+			video: req.params.name + path.extname(req.file.originalname)
 		})
 		.then(data => res.send(data));
 };

@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
 
+  search: string;
   selectedFilesVideo: FileList;
   currentFileUploadVideo: File;
 
@@ -128,6 +129,7 @@ export class AdminComponent implements OnInit {
               form.reset();
               this.modalService.dismissAll();
               this.GetVideos();
+              this.selectedFilesVideo = null;
               this.toastr.success('The video was successfully updated!', 'Success');
             },
             error => (this.errorMessage = <any>error),
@@ -136,7 +138,15 @@ export class AdminComponent implements OnInit {
         error => (this.errorMessage = <any>error),
       );
     } else {
-
+      this.currentFileUploadVideo = this.selectedFilesVideo.item(0);
+      this.videoService.pushFileToStorageUpdate(this.currentFileUploadVideo, this.regModel.name, this.regModel.video, this.regModel.id).subscribe(event => {
+        if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+          this.GetVideos();
+          form.reset();
+          this.modalService.dismissAll();
+          this.toastr.success('The video was successfully updated!', 'Success');
+        }});
     }
 
   }

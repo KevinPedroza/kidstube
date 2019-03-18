@@ -19,6 +19,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SafeHtmlPipe } from './urlsafe.pipe';
 import { SafeHtml2Pipe } from './htmlsafe.pipe';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SafeHtml2Pipe } from './htmlsafe.pipe';
     AdminComponent,
     AccountsComponent,
     SafeHtmlPipe,
-    SafeHtml2Pipe
+    SafeHtml2Pipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

@@ -54,6 +54,20 @@ export class VideoService {
       .catch(this.handleError);
   }
 
+
+  pushFileToStorageUpdate(file: File, nombre: string, video: string, id:number): Observable<HttpEvent<{}>> {
+    const formdata: FormData = new FormData();
+
+    formdata.append('video', file);
+
+    const req = new HttpRequest('PUT', 'http://localhost:8000/videonamevideo/' + nombre + '/' + video + "/" + id, formdata, {
+      reportProgress: true,
+      responseType: 'text',
+    });
+
+    return this.http.request(req);
+  }
+
   GetVideos(token: Token): Observable<Video[]> {
     return this.http
       .get<Video[]>(`${this.orderUrl}`, {

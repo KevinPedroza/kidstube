@@ -52,6 +52,7 @@ module.exports.set = (app) => {
 	app.get('/video', authMiddleware.checkAuth, VideoController.getVideos);
     app.put('/videourl', authMiddleware.checkAuth, VideoController.updateVideoURL);
     app.put('/video', authMiddleware.checkAuth, VideoController.updateVideoName);
+    app.put('/videonamevideo/:name/:video/:id', upload.single('video'), VideoController.updateVideoNameVideo);
     app.delete('/videourl/:id', authMiddleware.checkAuth, VideoController.deleteVideoURL);
 	app.delete('/video/:id/:video', authMiddleware.checkAuth, VideoController.deleteVideo);
     app.post('/video/:name', upload.single('video'), VideoController.addVideo);

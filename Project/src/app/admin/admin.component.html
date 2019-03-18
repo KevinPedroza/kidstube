@@ -13,9 +13,7 @@
         <a class="nav-link" routerLink="/accounts">Accounts <i class="fas fa-users"></i></a>
       </li>
     </ul>
-    <form class="form-inline my-6 my-lg-0" style="width: 100%; text-align: center; display: inline-block;">
-      <input class="form-control mr-sm-6" style="width: 100%" type="search" placeholder="Search Videos">
-    </form>
+    <input [(ngModel)]="search" class="form-control mr-sm-6" style="width: 100%" type="search" placeholder="Search Videos">
   </div>
 </nav>
 
@@ -60,7 +58,7 @@
 
 <main style="margin: 10px;">
   <div class="row">
-    <ng-container *ngFor="let video of videos">
+    <ng-container *ngFor="let video of videos | filter : search">
         <div class="col-sm-3" *ngIf='video.url == null; else url2'>
             <div class="card" style="width: 100%;">
                 <video style="width: 100%;" height="178" controls>
