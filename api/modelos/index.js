@@ -35,14 +35,15 @@ const Menores = sequelize.define('menore', {
     edad: Sequelize.INTEGER,
 });
 
-const Videos = sequelize.define('menore', {
+const Videos = sequelize.define('video', {
     id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true
 	},
-    nombre: Sequelize.STRING,
-    url: Sequelize.STRING
+    name: Sequelize.STRING,
+    url: Sequelize.STRING,
+    video: Sequelize.STRING
 });
 
 

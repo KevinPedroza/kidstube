@@ -6,6 +6,7 @@ import { VideoService } from "./../services/video.service";
 import { ToastrService } from "ngx-toastr";
 import { Video } from "./../models/video";
 import { NgForm } from "@angular/forms";
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-admin",
@@ -18,8 +19,9 @@ export class AdminComponent implements OnInit {
   errorMessage: string;
   videos: Video[] = [];
   regModel: Video;
-  selectedFiles: FileList;
   pdfname: string;
+  selectedFiles: FileList;
+  currentFileUpload: File;
 
   youtube: boolean;
   name: string;
@@ -67,7 +69,47 @@ export class AdminComponent implements OnInit {
   }
 
   addVideo(form: NgForm){
-    alert(this.pdfname);
+    this.GetVideos();
+    var nombre = this.videos.find(x => x.name == this.name);
+
+    if(nombre !== undefined){
+      this.toastr.error('The video already exists!', 'Error');
+    }else {
+      if(this.youtube){
+        this.authService.login().subscribe(
+          token => {
+            this.token = token;
+            if (this.video === undefined) {
+              this.video = new Video();
+            }
+            this.video.name = this.name;
+            this.video.url = this.url;
+  
+            this.videoService.AddVideoURL(this.token, this.video).subscribe(
+              arbitro => {
+                this.GetVideos();
+                form.reset();
+                this.modalService.dismissAll();
+                this.toastr.success('The video was successfully updated!', 'Success');
+              },
+              error => (this.errorMessage = <any>error),
+            );
+          },
+          error => (this.errorMessage = <any>error),
+        );
+      }
+      else{
+        this.currentFileUpload = this.selectedFiles.item(0);
+        this.videoService.pushFileToStorage(this.currentFileUpload, this.name).subscribe(event => {
+          if (event instanceof HttpResponse) {
+            console.log('File is completely uploaded!');
+            this.GetVideos();
+            form.reset();
+            this.modalService.dismissAll();
+            this.toastr.success('The video was successfully updated!', 'Success');
+          }});
+      }
+    }
   }
 
   private getDismissReason(reason: any): string {

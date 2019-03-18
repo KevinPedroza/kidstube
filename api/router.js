@@ -5,9 +5,23 @@ const authMiddleware = require('./middlewares/auth');
 var users = require('./controladores/users.js');
 const MenorController = require('./controladores/menores');
 const VideoController = require('./controladores/video');
+const multer = require('multer');
+const express = require('express');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: './public/videos/',
+    filename:  function (req, file, cb) {
+        cb(null, req.params.name + path.extname(file.originalname))
+      }
+});
+const upload = multer({
+    storage: storage
+});
 
 module.exports.set = (app) => {
 
+    app.use(express.static('./public'));
 
     app.set('views', './view');
     app.set('view engine', 'pug');
@@ -39,7 +53,7 @@ module.exports.set = (app) => {
 	app.get('/video/:id', authMiddleware.checkAuth, VideoController.getVideo);
 	app.put('/video', authMiddleware.checkAuth, VideoController.updateVideo);
 	app.delete('/video/:id', authMiddleware.checkAuth, VideoController.deleteVideo);
-    app.post('/video', authMiddleware.checkAuth, VideoController.addVideo);
+    app.post('/video/:name', upload.single('video'), VideoController.addVideo);
     app.post('/videourl', authMiddleware.checkAuth, VideoController.addVideoURL);
 
     app.get('/verify_email', function(req,res) {

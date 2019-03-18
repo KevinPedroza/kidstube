@@ -5,7 +5,7 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/operator/do";
 import { Token } from "../shared/token";
 import { Video } from "./../models/video";
-import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpEvent, HttpRequest } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +16,17 @@ export class VideoService {
 
   constructor(private http: HttpClient) { }
 
-  AddVideo(token: Token, video: Video): Observable<Video> {
+  pushFileToStorage(file: File, nombre: string): Observable<HttpEvent<{}>> {
+    const formdata: FormData = new FormData();
 
-    return this.http
-      .post<Video>(`${this.orderUrl}`, video, {
-        headers: { token: token.data.token }
-      })
-      .catch(this.handleError);
+    formdata.append('video', file);
+
+    const req = new HttpRequest('POST', 'http://localhost:8000/video/' + nombre, formdata, {
+      reportProgress: true,
+      responseType: 'text',
+    });
+
+    return this.http.request(req);
   }
 
   AddVideoURL(token: Token, video: Video): Observable<Video> {

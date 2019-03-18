@@ -1,4 +1,5 @@
 const videoService = require('../servicios/video');
+const path = require('path');
 
 function getVideos(req, res) {
 	videoService.getAll()
@@ -10,17 +11,17 @@ function getVideo(req, res) {
 		.then(data => res.send(data));
 }
 
-function addVideoURL(req, res) {
-	videoService.addVideo({
-			nombre: req.body.nombre,
-			url: req.body.url,
-		})
-		.then(data => res.send(data));
-};
-
 function addVideo(req, res){
 	videoService.addVideo({
-        nombre: req.body.nombre,
+		name: req.params.name,
+		video: req.params.name + path.extname(req.file.originalname)
+    })
+    .then(data => res.send(data));
+};
+
+function addVideoURL(req, res){
+	videoService.addVideo({
+        name: req.body.name,
         url: req.body.url,
     })
     .then(data => res.send(data));
@@ -29,7 +30,7 @@ function addVideo(req, res){
 function updateVideo(req, res) {
 	videoService.updateVideo({
 			id: req.body.id,
-			nombre: req.body.nombre,
+			name: req.body.name,
 			url: req.body.url,
 		})
 		.then(data => res.send(data));

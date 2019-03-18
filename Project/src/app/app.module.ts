@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { VerifyphoneComponent } from './verifyphone/verifyphone.component';
 import { AdminComponent } from './admin/admin.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { SafeHtmlPipe } from './urlsafe.pipe';
+import { SafeHtml2Pipe } from './htmlsafe.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AccountsComponent } from './accounts/accounts.component';
     RegisterComponent,
     VerifyphoneComponent,
     AdminComponent,
-    AccountsComponent
+    AccountsComponent,
+    SafeHtmlPipe,
+    SafeHtml2Pipe
   ],
   imports: [
     BrowserModule,
