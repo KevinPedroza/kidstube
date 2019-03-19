@@ -44,6 +44,7 @@ export class VerifyphoneComponent implements OnInit {
             arbitro => {
               console.log(arbitro);
               if(arbitro.success){
+                sessionStorage.setItem("admin", "admin");
                 this.toastr.success('Your Code is Correct!', 'Successfully');
                 this.router.navigate(['/admin']);
               }
