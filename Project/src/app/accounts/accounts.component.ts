@@ -6,6 +6,7 @@ import { MenorService } from "./../services/menor.service";
 import { ToastrService } from 'ngx-toastr';
 import { Menor } from './../models/menor';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -26,7 +27,7 @@ export class AccountsComponent implements OnInit {
   age: number;
 
   constructor(private modalService: NgbModal,private toastr: ToastrService, private menorService: MenorService,
-    private authService: AuthService) { }
+    private authService: AuthService, private router: Router) { }
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -34,6 +35,11 @@ export class AccountsComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   Eliminar(name: string, id: number) {

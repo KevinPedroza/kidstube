@@ -1,6 +1,10 @@
 const usuarioService = require('../servicios/usuario');
 var crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
+
+// https://github.com/seegno/authy-client
+const Client = require('authy-client').Client;
+const authy = new Client({key: 'df7yMIi6Mtmj48U0X9HdsZNmL2sRmzdi'});
 sgMail.setApiKey('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');
 
 function getUsuarios(req, res) {
@@ -29,6 +33,19 @@ function addUsuario(req, res) {
 			code: req.body.code
 		})
 		.then(data => res.send(data));
+
+		authy.registerUser({
+			countryCode: req.body.code,
+			email: req.body.email,
+			phone: req.body.phone
+		}, function (err, regRes) {
+			if (err) {
+				console.log('Error Registering User with Account Security');
+				res.status(500).json(err);
+				return;
+			}
+		});
+
 	var authenticationURL = 'http://localhost:8000/verify_email?token=' + authToken;
 	const msg = {
 		to: req.body.email,

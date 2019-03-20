@@ -7,6 +7,7 @@ import { ToastrService } from "ngx-toastr";
 import { Video } from "./../models/video";
 import { NgForm } from "@angular/forms";
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-admin",
@@ -36,8 +37,14 @@ export class AdminComponent implements OnInit {
     private modalService: NgbModal,
     private toastr: ToastrService,
     private videoService: VideoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
+
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
   onFileSelected(event) {
     this.selectedFiles = event.target.files;

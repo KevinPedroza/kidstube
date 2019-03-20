@@ -12,6 +12,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/accounts">Accounts <i class="fas fa-users"></i></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()">Log Out <i class="fas fa-sign-out-alt"></i></a>
+      </li>
     </ul>
     <input [(ngModel)]="search" class="form-control mr-sm-6" style="width: 100%" type="search" placeholder="Search Videos">
   </div>

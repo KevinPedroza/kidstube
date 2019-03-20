@@ -64,7 +64,7 @@ module.exports.set = (app) => {
         Usuario.update(
             { autenticado: true },
             { where: { token: req.query.token } }
-          ).then(result => handleResult(result)).catch(err => handleError(err))
+          ).then(result => handleResult(result)).catch(err => err)
 
         res.render('verify', {title: 'Authentication Completed'});
     });
